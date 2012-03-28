@@ -8,29 +8,35 @@
 <head>
 <meta charset="UTF-8">
 <meta name="keywords" content="Auto, Parts, Car, Autoparts"/>
-<meta name="description" content="Order your car part on your mobile"/>
+<meta name="description" content="Order your car part on your mobile device"/>
 <meta name="robots" content="INDEX"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="HandheldFriendly" content="True"/>
 
-<title>AutoParts Request</title>
+<title>AutoParts Prepare</title>
 
 </head>
 
 <body>
-<h1>AutoPart Request</h1>
+	<header>
+		<h1><span>AutoPart Prepare</span></h1>
 
-<h2>Choose part description:</h2>
-
-<p>	<select>
-    	<option value="motor">Motor</option>
-   		<option value="cabin">Cabin</option> 
-   		<option value="body">Body</option>
-   		<option value="trunk">Trunk</option>
-   		<option value="exhaust">Exhaust</option>
-    	<option value="wheel">Wheels</option>
-  	</select></p> 
+		<h2>Choose Part Description:</h2>
 
 <!-- Form Begins Here -->
+
+		 <p><select>
+    		<option value="motor">Motor</option>
+   			<option value="cabin">Cabin</option> 
+   			<option value="body">Body</option>
+   			<option value="trunk">Trunk</option>
+   			<option value="exhaust">Exhaust</option>
+    		<option value="wheel">Wheels</option>
+  			</select></p> 
+	</header>
+    
+<!-- Form Begins Here -->
+
 <!-- Customer Information -->
 
 <form>
@@ -43,18 +49,15 @@
      		<li><label for="phone">Phone Number:</label></li>
      		<input type="tel" name="phone" input id="number" autocomplete="on">
      
-     		<li><label for="usrmail">E-Mail:</label></li>	  
-	 		<input type="email" name="usrmail" input id="mail" autocomplete="on">
-     
-     		<li><label for="address">Address:</label></li>
-     		<textarea autofocus></textarea><br></p>
+     		<li><label for="email">E-Mail:</label></li>	  
+	 		<input type="email" name="email" input id="email" autocomplete="on">
 		</ul>
 </fieldset> 
 
-<!-- Car Part Request Form Begins -->
+<!-- Part Form -->
 
 <fieldset>
-	<legend>Request Form:</legend>
+	<legend>Part Form:</legend>
     	<ul>
      		<li><label for="cpart">Part Needed:</label></li>
      		<input type="text" name="cpart" input id="part">
@@ -71,10 +74,10 @@
      		<li><label for="ycar">Year:</label></li>
      		<input type="text" name="ycar" input id="year">
      
-     		<li><label for="pickup">Pick Up:</label>	  
+     		<li><label for="deliver">Used:</label>	  
      		<input type="radio" name="obtain" input id="delivery">
      
-     		<label for="deliver">Deliver:</label>
+     		<label for="deliver">New:</label>
      		<input type="radio" name="obtain" input id="delivery" checked="checked"></li>
      
 	 		<p><li><label for="special">Special Request:</label></li>
@@ -84,9 +87,11 @@
 </form>
 
 <!-- End Of Form -->
-<!-- Submit Your Request or Display your Order -->
 
-<p><input type="submit" value="Submit">
+<!-- Save Information needed or Display your Order -->
+<p><input type="submit" value="Save Info">
+
+<!-- Clear Storage Link and Display Order Link -->
 <h5><a href="#">Clear Local Storage</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="#">Display Order</a></h5></p>
 
 </body>
