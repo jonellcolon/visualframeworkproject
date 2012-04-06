@@ -1,0 +1,66 @@
+@charset "UTF-8";
+/* 
+
+Title: additem.html Styles
+By: Jonell Colon
+Project 2 VFW
+ 
+ */
+
+body {
+	font-family: Tahoma, Geneva, sans-serif;
+	background: #CCC;
+}
+
+fieldset {
+	-moz-border-radius: 10px;
+	border-radius: 10px;
+	background: #F6F6F6;
+	font-family: Helvetica;
+}
+
+label {
+	display: block;
+	font-family: Arial, Helvetica, sans-serif;		
+}
+
+legend{
+	background: #666;
+	color: #FFF;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+	border-color: #333;
+	font-family: Helvetica;
+	padding: 3px;	 
+}
+
+
+h2{
+	font-family: Geneva;
+}
+
+
+p{
+ 	font-family:Arial, Helvetica, sans-serif;
+	background: #FFF;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+	padding: 10px;
+	border-color: #000;	
+}
+
+
+h1{
+	text-align: center;
+	padding: 10px;
+	background: #666;
+	color: #F6F6F6;
+	-moz-border-radius: 4px;
+	border-radius: 5px;
+	font-family: Helvetica;
+}
+
+span{
+	color: rgb(255,255,255);
+	text-outline: none;
+}
