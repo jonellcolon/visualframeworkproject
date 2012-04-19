@@ -1,66 +1,66 @@
 @charset "UTF-8";
-/* 
-
-Title: additem.html Styles
-By: Jonell Colon
-Project 2 VFW
- 
- */
-
-body {
-	font-family: Tahoma, Geneva, sans-serif;
-	background: #CCC;
-}
-
-fieldset {
-	-moz-border-radius: 10px;
-	border-radius: 10px;
-	background: #F6F6F6;
+/* CSS Document */
+h1{
+	position: relative;
+	margin: 10px 10px 10px 10px;
+	/*padding: 23px 10px 0px 10px;*/
 	font-family: Helvetica;
+	color: #2a2a2a;
+	text-shadow: 1px 1px 1px #dfdfdf;
+	text-align: center;
 }
-
-label {
-	display: block;
-	font-family: Arial, Helvetica, sans-serif;		
+body{
+	font-family: Helvetica;
+	background: rgb(230,230,230);
 }
-
+header{
+	position: relative;
+	margin: -23px 0px 0px -8px;
+	padding: 8px 8px 0px 8px;
+	width: 100%;
+	background: -webkit-linear-gradient(top, #ebedeb, #d3d3d4 10%, #d3d3d4, #b0b1b0 90%, #9a9b9a);
+	border: medium;
+	border-color: rgb(0,0,0);
+}
 legend{
-	background: #666;
+	font-weight: bold;
+	font-size: 18px;
+	font-weight: 3px;
+	background: #2a2a2a;
 	color: #FFF;
 	-moz-border-radius: 3px;
 	border-radius: 3px;
 	border-color: #333;
 	font-family: Helvetica;
-	padding: 3px;	 
+	padding: 1px 2px 1px 2px;
 }
-
-
-h2{
-	font-family: Geneva;
-}
-
-
-p{
- 	font-family:Arial, Helvetica, sans-serif;
-	background: #FFF;
-	-moz-border-radius: 3px;
-	border-radius: 3px;
-	padding: 10px;
-	border-color: #000;	
-}
-
-
-h1{
-	text-align: center;
-	padding: 10px;
-	background: #666;
-	color: #F6F6F6;
-	-moz-border-radius: 4px;
-	border-radius: 5px;
-	font-family: Helvetica;
-}
-
 span{
-	color: rgb(255,255,255);
-	text-outline: none;
+	font-size: large;
+	font-weight: bold;
+}
+fieldset{
+	-moz-border-radius: 10px;
+	border-radius: 10px;
+}
+article{
+	-moz-border-radius: 10px;
+	border-radius: 10px;
+	background: rgb(245,245,245);
+	padding: 1px 10px;
+	border-color: #000000;
+	border: thin;
+}
+input[type="submit"]{
+	margin: 8px; 
+	font-size: 18px;
+	font-weight: bold;
+	background: #2a2a2a;
+    width: 150px;
+    padding: 9px;
+    letter-spacing: 1px;
+    border: none;
+    color: rgb(255,255,255);
+    border-radius: 1px;
+    -moz-border-radius: 1px;
+    -webkit-border-radius: 1px;
 }

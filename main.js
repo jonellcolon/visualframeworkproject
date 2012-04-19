@@ -30,10 +30,10 @@ window.addEventListener("DOMContentLoaded", function(){
 	
 	// Find value of selected radio button.
 	function getSelectedRadio(){
-		var radios = document.forms[0].style;
+		var radios = document.forms[0].mode;
 		for(var i=0; i<radios.length; i++){
 			if(radios[i].checked){
-				partStyle = radios[i].style;
+				partStyle = radios[i].value;
 			}
 		}
 		
@@ -59,21 +59,25 @@ window.addEventListener("DOMContentLoaded", function(){
 		}
 	}
 	
-	function storeData(){
-		
+	function storeData(key){
+		//if the is no key, this is means this is a brand new item and need new key.
+		if(!key){
 		var id			= Math.floor(Math.random()*100000001);
-		
+		}else{
+			id = key;
+		}
 		getSelectedRadio();
-		
 		var item		= {};
 			item.group	= ["Group: ", $("groups").value];
 			item.fullname	= ["Full Name: ", $("fullname").value];
 			item.phone	= ["Phone Number: ", $("phone").value];
+			item.email	= ["E-Mail: ", $("email").value];
 			item.cpart	= ["Car Part: ", $("cpart").value];
 			item.hmany	= ["How Many: ", $("hmany").value];
 			item.ctype	= ["Car Type: ", $("ctype").value];
+			item.cmodel	= ["Car Model: ", $("cmodel").value];
 			item.ycar	= ["Car Year: ", $("ycar").value];
-			item.style	= ["Value: ", partStyle];
+			item.mode	= ["Value: ", partStyle];
 			item.special	= ["Special Request: ", $("special").value];
 			
 			//Save data to Local Storage: Stringify.
@@ -96,6 +100,7 @@ window.addEventListener("DOMContentLoaded", function(){
 		$("items").style.display = "block";
 		for(var i=0, len=localStorage.length; i<len;i++){
 			var makeli = document.createElement("li");
+			var linksLi = document.createElement("li");
 			makeList.appendChild(makeli);
 			var key = localStorage.key(i);
 			var value = localStorage.getItem(key);
@@ -107,26 +112,167 @@ window.addEventListener("DOMContentLoaded", function(){
 				makeSubList.appendChild(makeSubli);
 				var optSubText = obj[n][0]+" "+obj[n][1];
 				makeSubli.innerHTML = optSubText;
+				makeSubList.appendChild(linksLi);
 			}
+			makeItemLinks(localStorage.key(i), linksLi); // Create our edit and delete buttons/links.
 			
 		}
 			
 	}
 	
+	//Make items links
+	function makeItemLinks(key, linksLi){
+		// add edit single item link
+		var editLink = document.createElement("a");
+		editLink.href = "#";
+		editLink.key = key;
+		var editText = "Edit Item";
+		editLink.addEventListener("click", editItem);
+		editLink.innerHTML = editText;
+		linksLi.appendChild(editLink);
+		
+		//add line break
+		var breakTag = document.createElement("br");
+		linksLi.appendChild(breakTag);
+		
+		// add delete single item link
+		var deleteLink = document.createElement("a");
+		deleteLink.href = "#";
+		deleteLink.key = key;
+		var deleteText = "Delete Item";
+		deleteLink.addEventListener("click", deleteItem);
+		deleteLink.innerHTML = deleteText;
+		linksLi.appendChild(deleteLink);
+	}
+	
+	function editItem(){
+		//Grab the data from our item.
+		var value = localStorage.getItem(this.key);
+		var item = JSON.parse(value);
+		
+		//Show the form.
+		toggleControls("off");
+		
+		//populate the form field.
+		$("groups").value = item.group[1];
+		$("fullname").value = item.fullname[1];
+		$("phone").value = item.phone[1];
+		$("email").value = item.email[1];
+		$("cpart").value = item.cpart[1];
+		$("hmany").value = item.hmany[1];
+		$("ctype").value = item.ctype[1];
+		$("cmodel").value = item.cmodel[1];
+		$("ycar").value = item.ycar[1];
+		var radios = document.forms[0].style;
+		for(var i=0; i<radios.length; i++){
+			if(radios[i].value == "Used" && item.style[1] == "Used"){
+				radios[i].setAttribute("checked", "checked");
+			}else if (radios[i].value == "New" && item.style[1] == "New"){
+				radios[i].setAttribute("checked", "checked");
+			}
+		}
+		$("special").value = item.special[1];
+	
+		//Remove the initial listener from input 
+		save.removeEventListener("click", storeData);
+		//Change Submit button value to edit button
+		$("submit").value = "Edit Content";
+		var editSubmit = $("submit");
+		//Save the key value established in this function as a property
+		editSubmit.addEventListener("click", validate);
+		editSubmit.key = this.key;	
+	}
+	
+	function deleteItem(){
+		var ask = confirm("Are you sure you want to delete item?");
+		if (ask){
+			localStorage.removeItem(this.key);
+			alert("Item was deleted!");
+			window.location.reload();
+		}else{
+			alert("Item was NOT deleted.");
+		}
+		
+	}
+	
 	function clearLocal(){
 		if(localStorage.length === 0){
-			alert("There is no data to clear.")
+			alert("There is no data to clear.");
 		}else{
 			localStorage.clear();
-			alert("All Data is deleted!");
+			alert("All data is deleted!");
 			window.location.reload();
 			return false;
 		}
 	}
 	
+	function validate(e){
+		//Define elements we want to check
+		var getGroup = $("groups");
+		var getFullName = $("fullname");
+		var getPhone = $("phone");
+		var getEmail = $("email");
+		
+		//Rest error messages
+		errMsg.innerHTML = "";
+		getGroup.style.border = "1px solid black";
+		getFullName.style.border = "1px solid black";
+		getEmail.style.border = "1px solid black";
+		
+		
+		//Get error Messages
+		var messageAry = [];
+		//Group Validation
+		if(getGroup.value === "--Choose One--"){
+			var groupError = "Please choose a group.";
+			getGroup.style.border = "1px solid red";
+			messageAry.push(groupError);
+		}
+		
+		//Name Validation
+		if(getFullName.value === ""){
+			var fullNameError = "Please enter a name.";
+			getFullName.style.border = "1px solid red";
+			messageAry.push(fullNameError);
+		}
+		
+		//Phone Validation
+		var phonere = /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/;
+		if (!(phonere.exec(getPhone.value))){
+			var phoneError = "Please enter a valid phone number.";
+			getPhone.style.border = "1px solid red";
+			messageAry.push(phoneError);
+		}
+		
+		//Email Validation
+		var re = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+		if (!(re.exec(getEmail.value))){
+			var emailError = "Please enter a valid email address.";
+			getEmail.style.border = "1px solid red";
+			messageAry.push(emailError);
+		}
+		
+		//if there were errors display them on the screen
+		if (messageAry.length >= 1){
+			for (var i=0, j=messageAry.length; i < j; i++){
+				var txt = document.createElement("li");
+				txt.innerHTML = messageAry[i];
+				errMsg.appendChild(txt);
+			}
+			e.preventDefault();
+			return false;
+		}else{
+			//if all is ok save our data. Send the key value that came from editData function.
+			storeData(this.key);
+			
+		}
+		
+			
+	}
 	// Variable defaults
-	var contactGroups = ["--Choose One--", "Motor", "Cabin", "Wheels", "Body", "Trunk", "Exhaust"],
-		partValue
+	var contactGroups = ["--Choose One--", "Engine", "Cabin", "Wheels", "Body", "Trunk", "Exhaust"],
+		partValue,
+		errMsg = $("errors");
 	;
 	makeCats();
 	
@@ -136,7 +282,7 @@ window.addEventListener("DOMContentLoaded", function(){
 	var clearLink = $("clear");
 	clearLink.addEventListener("click", clearLocal);
 	var save = $("submit");
-	save.addEventListener("click", storeData);
+	save.addEventListener("click", validate);
 	
 
 
