@@ -33,7 +33,7 @@ window.addEventListener("DOMContentLoaded", function(){
 		var radios = document.forms[0].mode;
 		for(var i=0; i<radios.length; i++){
 			if(radios[i].checked){
-				partStyle = radios[i].value;
+				partMode = radios[i].value;
 			}
 		}
 		
@@ -77,7 +77,7 @@ window.addEventListener("DOMContentLoaded", function(){
 			item.ctype	= ["Car Type: ", $("ctype").value];
 			item.cmodel	= ["Car Model: ", $("cmodel").value];
 			item.ycar	= ["Car Year: ", $("ycar").value];
-			item.mode	= ["Value: ", partStyle];
+			item.mode	= ["Value: ", partMode];
 			item.special	= ["Special Request: ", $("special").value];
 			
 			//Save data to Local Storage: Stringify.
@@ -89,7 +89,8 @@ window.addEventListener("DOMContentLoaded", function(){
 	function getData(){
 		toggleControls("on");
 		if(localStorage.length === 0){
-			alert("There is no data in Local Storage.");
+			alert("There is no data in local storage, default data added.");
+			autoFillData();
 		}
 		// Write Data into Local Storage
 		var makeDiv = document.createElement("div");
@@ -107,6 +108,7 @@ window.addEventListener("DOMContentLoaded", function(){
 			var obj = JSON.parse(value);
 			var makeSubList = document.createElement("ul");
 			makeli.appendChild(makeSubList);
+			getImage(obj.group[1],makeSubList);
 			for(var n in obj){
 				var makeSubli = document.createElement("li");
 				makeSubList.appendChild(makeSubli);
@@ -118,6 +120,26 @@ window.addEventListener("DOMContentLoaded", function(){
 			
 		}
 			
+	}
+	
+	//Get the image for the right  category
+	function getImage(catName, makeSubList){
+		var imageLi = document.createElement("li");
+		makeSubList.appendChild(imageLi);
+		var newImg = document.createElement("img");
+		var setSrc = newImg.setAttribute("src", "images/"+ catName + ".png");
+		imageLi.appendChild(newImg);	
+	}
+	
+	
+	//Auto Populate Local Storage
+	function autoFillData(){
+		//Store JSON into local storage.
+		for(var n in json){
+			var id = Math.floor(Math.random()*100000001);
+			localStorage.setItem(id, JSON.stringify(json[n]));
+		}
+		
 	}
 	
 	//Make items links
@@ -163,11 +185,11 @@ window.addEventListener("DOMContentLoaded", function(){
 		$("ctype").value = item.ctype[1];
 		$("cmodel").value = item.cmodel[1];
 		$("ycar").value = item.ycar[1];
-		var radios = document.forms[0].style;
+		var radios = document.forms[0].mode;
 		for(var i=0; i<radios.length; i++){
-			if(radios[i].value == "Used" && item.style[1] == "Used"){
+			if(radios[i].value == "Used" && item.mode[1] == "Used"){
 				radios[i].setAttribute("checked", "checked");
-			}else if (radios[i].value == "New" && item.style[1] == "New"){
+			}else if (radios[i].value == "New" && item.mode[1] == "New"){
 				radios[i].setAttribute("checked", "checked");
 			}
 		}
